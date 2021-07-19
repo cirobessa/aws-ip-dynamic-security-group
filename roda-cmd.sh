@@ -1,9 +1,13 @@
- #!/bin/bash
+#!/bin/bash
+
+export AWS_ACCESS_KEY_ID=$ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY=$SECRET
+export AWS_DEFAULT_REGION=us-east-1
+export SG=$SG
 
 while true
  do
  date 
- sleep  600
 
 
 # need my current ip
@@ -21,4 +25,7 @@ then
  aws ec2 authorize-security-group-ingress --group-id "${SG}" --ip-permissions '[{"IpProtocol": "tcp", "FromPort": 22, "ToPort": 22, "IpRanges": [{"CidrIp": "'"${NEW_CIDR}"'", "Description": "Rule0"}]}]'
 
 fi
+
+ sleep  600
  done
+
