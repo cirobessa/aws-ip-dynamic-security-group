@@ -1,9 +1,10 @@
 #!/bin/bash
 
-export AWS_ACCESS_KEY_ID=$ACCESS_KEY
-export AWS_SECRET_ACCESS_KEY=$SECRET
-export AWS_DEFAULT_REGION=us-east-1
-export SG=$SG
+export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+export AWS_DEFAULT_REGION=$AWS_ACTION_REGION
+export SG=$SECURITY_GROUP
+
 
 while true
  do
@@ -22,7 +23,7 @@ aws ec2 describe-security-groups  | grep -i $NEW_CIDR
 if [ $? -gt 0  ]
 then
 
- aws ec2 authorize-security-group-ingress --group-id "${SG}" --ip-permissions '[{"IpProtocol": "tcp", "FromPort": 22, "ToPort": 22, "IpRanges": [{"CidrIp": "'"${NEW_CIDR}"'", "Description": "Rule0"}]}]'
+ aws ec2 authorize-security-group-ingress --group-id "${SG}" --ip-permissions '[{"IpProtocol": "tcp", "FromPort": 5432, "ToPort": 5432, "IpRanges": [{"CidrIp": "'"${NEW_CIDR}"'", "Description": "Rule0"}]}]'
 
 fi
 
