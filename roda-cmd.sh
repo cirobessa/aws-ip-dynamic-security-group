@@ -27,6 +27,6 @@ then
 
 fi
 
- sleep  600
+ sleep  305
  done
 
